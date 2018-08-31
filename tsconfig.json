@@ -1,0 +1,33 @@
+{
+    "compileOnSave": true,
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.spec.ts"
+    ],
+    "compilerOptions": {
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2017",
+            "esnext.asynciterable"
+        ],
+        "types": [
+            "node"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "module": "commonjs",
+        "target": "es2017",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "downlevelIteration": true,
+        "strictNullChecks": true
+    }
+}

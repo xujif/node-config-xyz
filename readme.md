@@ -1,4 +1,4 @@
-# Config
+# config-xyz
 A configuration manager for NodeJS. support nodejs & typescript  
 - support dot prop set/get 
 - support update event 
@@ -6,8 +6,8 @@ A configuration manager for NodeJS. support nodejs & typescript
 
 ## install
 ```
-npm install Config --save
-// yarn add confix
+npm install config-xyz --save
+// yarn add config-xyz
 ```
 ## Usage
 more examples are in src/tests/test_config.ts

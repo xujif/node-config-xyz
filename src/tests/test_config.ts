@@ -17,9 +17,11 @@ describe('Test Config', () => {
     it('merge', () => {
         const config = new Config()
         config.set('xxx', 2)
+        assert.strictEqual(2, config.get('xxx'))
         config.merge({ 'xxx': 1 })
+        config.merge({ 'yyy': 1 }, 'prefix')
         assert.strictEqual(1, config.get('xxx'))
-        assert.strictEqual(1, config.get('not exist and return default', 1))
+        assert.strictEqual(1, config.get('prefix.yyy'))
     })
     it('get with typecast', () => {
         const config = new Config()
@@ -65,8 +67,8 @@ describe('Test Config', () => {
             fs.writeFileSync(tmpfile, JSON.stringify(cfg), 'utf8')
             config.loadFromFile(tmpfile)
             assert.strictEqual(1, config.get('xxx.aaa'))
-            // with namespace
-            config.loadFromFile(tmpfile, { namespace: 'test' })
+            // with prefixKey
+            config.loadFromFile(tmpfile, { prefixKey: 'test' })
             assert.strictEqual(1, config.get('test.xxx.aaa'))
         } finally {
             if (fs.existsSync(tmpfile)) {
@@ -82,8 +84,8 @@ describe('Test Config', () => {
             fs.writeFileSync(tmpfile, cfg, 'utf8')
             config.loadFromFile(tmpfile)
             assert.strictEqual(1, config.get('xxx.aaa'))
-            // with namespace
-            config.loadFromFile(tmpfile, { namespace: 'test' })
+            // with prefixKey
+            config.loadFromFile(tmpfile, { prefixKey: 'test' })
             assert.strictEqual(1, config.get('test.xxx.aaa'))
         } finally {
             if (fs.existsSync(tmpfile)) {
@@ -101,8 +103,8 @@ describe('Test Config', () => {
             fs.writeFileSync(tmpfile, cfg, 'utf8')
             config.loadFromFile(tmpfile)
             assert.strictEqual(1, config.get('xxx.aaa'))
-            // with namespace
-            config.loadFromFile(tmpfile, { namespace: 'test' })
+            // with prefixKey
+            config.loadFromFile(tmpfile, { prefixKey: 'test' })
             assert.strictEqual(1, config.get('test.xxx.aaa'))
         } finally {
             if (fs.existsSync(tmpfile)) {

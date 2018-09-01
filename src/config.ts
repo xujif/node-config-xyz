@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 const debug = DEBUG('Config')
 
 export interface LoadFileOption {
-    namespace?: string
+    prefixKey?: string
     encoding: string
 }
 export interface ConfigUpdateEvent {
@@ -32,12 +32,12 @@ export class Config extends EventEmitter2 {
      */
     loadFromFile (path: string, opt?: Partial<LoadFileOption>) {
         const options = Object.assign({ encoding: 'utf8' }, opt)
-        debug('load from file :', path, 'namespace :', options.namespace || '')
+        debug('load from file :', path, 'prefixKey :', options.prefixKey || '')
         const obj = this._loadFromFile(path, options)
         if (!obj) {
             return
         }
-        this.merge(obj, options.namespace)
+        this.merge(obj, options.prefixKey)
     }
 
     toJSON () {
@@ -48,14 +48,14 @@ export class Config extends EventEmitter2 {
      * mrege values
      *
      * @param {{ [k: string]: any }} obj
-     * @param {string} [namespace]
+     * @param {string} [prefixKey]
      * @memberof Config
      */
-    merge (obj: { [k: string]: any }, namespace?: string): this {
-        debug('merge config:', obj, 'namespace', namespace || '')
+    merge (obj: { [k: string]: any }, prefixKey?: string): this {
+        debug('merge config:', obj, 'prefixKey', prefixKey || '')
         for (let k of Object.keys(obj)) {
             if (typeof k === 'string') {
-                const key = namespace && namespace.length > 0 ? `${namespace.replace(/\.*$/, '')}.${k}` : k
+                const key = prefixKey && prefixKey.length > 0 ? `${prefixKey.replace(/\.*$/, '')}.${k}` : k
                 this.set(key, obj[k])
             }
         }

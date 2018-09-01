@@ -8,7 +8,6 @@ const debug = DEBUG('Config')
 export interface LoadFileOption {
     namespace?: string
     encoding: string
-    loadJsInVm: boolean
 }
 export interface ConfigUpdateEvent {
     key: string
@@ -31,7 +30,7 @@ export class Config extends EventEmitter2 {
      * @memberof Config
      */
     loadFromFile (path: string, opt?: Partial<LoadFileOption>) {
-        const options = Object.assign({ encoding: 'utf8', loadJsInVm: true }, opt)
+        const options = Object.assign({ encoding: 'utf8' }, opt)
         debug('load from file :', path, 'namespace :', options.namespace || '')
         const obj = this._loadFromFile(path, options)
         if (!obj) {
@@ -105,15 +104,11 @@ export class Config extends EventEmitter2 {
             return JSON.parse(content)
         } else if (/\.js$/.test(path)) {
             const content = fs.readFileSync(path).toString(opt.encoding)
-            if (opt.loadJsInVm) {
-                const { NodeVM } = require('vm2');
-                const vm = new NodeVM({
-                    sandbox: {}
-                });
-                return vm.run(content)
-            } else {
-                return require('require-from-string')(content)
-            }
+            const { NodeVM } = require('vm2');
+            const vm = new NodeVM({
+                sandbox: {}
+            });
+            return vm.run(content)
         } else {
             throw new Error(`can not load config, only support [.js .json .y(a)ml] file`)
         }

@@ -1,8 +1,9 @@
 # config-xyz
 A configuration manager for NodeJS. support nodejs & typescript  
 - support dot prop set/get 
-- support update event 
-- support load config from .js|yml|json file
+- support update event
+- support load config from .js|yml|json file. (load js files with vm2)
+
 
 ## install
 ```

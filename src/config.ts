@@ -13,6 +13,7 @@ export interface ConfigUpdateEvent {
     key: string
     value: any
 }
+
 export class Config extends EventEmitter2 {
 
     private config = {} as any
@@ -74,23 +75,36 @@ export class Config extends EventEmitter2 {
     has (key: string): boolean {
         return typeof this.get(key) !== 'undefined'
     }
-    get<T=any> (key: string, defaultValue?: T): T {
+
+    get<T=any> (key: string): T | undefined
+    get<T=any> (key: string, defaultValue: T): T
+    get<T=any> (key: string, defaultValue?: T): | undefined {
         debug('get value key:', key)
         const v = _.get(this.config, key)
         return v === undefined ? defaultValue : v
     }
 
     getAsString (key: string, defaultValue?: string) {
-        return this.get(key, defaultValue).toString()
+        const v = this.get(key, defaultValue)
+        if (typeof v === 'undefined') {
+            return
+        }
+        return v.toString()
     }
 
     getAsNumber (key: string, defaultValue?: number) {
         const v = this.get(key, defaultValue)
+        if (typeof v === 'undefined') {
+            return
+        }
         return typeof v === 'number' ? v : parseFloat(v)
     }
 
     getAsIneger (key: string, defaultValue?: number) {
         const v = this.get(key, defaultValue)
+        if (typeof v === 'undefined') {
+            return
+        }
         return Math.floor(v)
     }
 

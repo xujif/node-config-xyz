@@ -61,7 +61,8 @@ export class Config extends EventEmitter2 {
     merge (obj: { [k: string]: any }, namespace?: string) : this
     set (key: string, value: any): this 
     has (key: string): boolean 
-    get<T=any> (key: string, defaultValue?: T): T 
+    get<T=any> (key: string): T | undefined
+    get<T=any> (key: string, defaultValue: T): T
     getAsString (key: string, defaultValue?: string) : string
     getAsNumber (key: string, defaultValue?: number) : number
     getAsIneger (key: string, defaultValue?: number) : number

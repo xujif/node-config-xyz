@@ -4,7 +4,12 @@ A configuration manager for NodeJS. support nodejs & typescript
 - support update event
 - support load config from .js|yml|json file. (load js files with vm2)
 
+### Note
+load config from .js file:
+- cannot require any module
+- only access process.env  
 
+use ```config.merge(require('config.js'))``` instead if necessary.
 ## install
 ```
 npm install config-xyz --save

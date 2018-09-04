@@ -113,6 +113,22 @@ describe('Test Config', () => {
         }
     })
 
+    it('load js file with procees.env', () => {
+        const config = new Config()
+        process.env.xxx = '111'
+        const cfg = `module.exports = {xxx:process.env.xxx}`
+        const tmpfile = path.join(os.tmpdir(), `/can_delete_${Math.floor(Math.random() * 10000)}.js`)
+        try {
+            fs.writeFileSync(tmpfile, cfg, 'utf8')
+            config.loadFromFile(tmpfile)
+            assert.strictEqual('111', config.get('xxx'))
+        } finally {
+            if (fs.existsSync(tmpfile)) {
+                fs.unlinkSync(tmpfile)
+            }
+        }
+    })
+
 });
 
 

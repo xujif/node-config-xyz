@@ -120,7 +120,7 @@ export class Config extends EventEmitter2 {
             const content = fs.readFileSync(path).toString(opt.encoding)
             const { NodeVM } = require('vm2');
             const vm = new NodeVM({
-                sandbox: {}
+                sandbox: { process: { env: Object.assign({}, process.env) } },
             });
             return vm.run(content)
         } else {

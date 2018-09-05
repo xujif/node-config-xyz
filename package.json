@@ -1,9 +1,13 @@
 {
   "name": "config-xyz",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "./dist/config.js",
   "types": "./dist/config.d.ts",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xujif/node-config-xyz.git"
+  },
   "homepage": "https://github.com/xujif/node-config-xyz",
   "description": "A configuration manager for NodeJS. support nodejs & typescript",
   "author": "i@xujif.com",
@@ -30,7 +34,6 @@
   },
   "devDependencies": {
     "@types/debug": "^0.0.30",
-    "@types/eventemitter2": "^4.1.0",
     "@types/lodash": "^4.14.116",
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.4.6",
@@ -40,7 +43,7 @@
     "tsc-watch": "^1.0.16",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.8.0",
-    "tslint-config-standard": "^7.0.0",
+    "tslint-config-standard": "^8.0.0",
     "typescript": "*"
   }
 }

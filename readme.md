@@ -2,14 +2,16 @@
 A configuration manager for NodeJS. support nodejs & typescript  
 - support dot prop set/get 
 - support update event
-- support load config from .js|yml|json file. (load js files with vm2)
+- support load config from .js|yml|json file. 
 
 ### Note
 load config from .js file:
-- cannot require any module
-- only access process.env  
+- ignore require.cache
+- load js files with vm2 (default), provide option ```{ loadJsFileWithVm: false }```  to skip it.
+- if load with vm2
+  - cannot require any module 
+  - only access process.env   
 
-use ```config.merge(require('config.js'))``` instead if necessary.
 ## install
 ```
 npm install config-xyz --save

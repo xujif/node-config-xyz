@@ -8,6 +8,7 @@ const debug = DEBUG('Config')
 export interface LoadFileOption {
     prefixKey?: string
     encoding: string
+    loadJsFileWithVm?: boolean
 }
 export interface ConfigUpdateEvent {
     key: string
@@ -31,7 +32,7 @@ export class Config extends EventEmitter2 {
      * @memberof Config
      */
     loadFromFile (path: string, opt?: Partial<LoadFileOption>) {
-        const options = Object.assign({ encoding: 'utf8' }, opt)
+        const options = Object.assign({ encoding: 'utf8', loadJsFileWithVm: true }, opt)
         debug('load from file :', path, 'prefixKey :', options.prefixKey || '')
         const obj = this._loadFromFile(path, options)
         if (!obj) {
@@ -54,7 +55,7 @@ export class Config extends EventEmitter2 {
     merge (obj: { [k: string]: any }, prefixKey?: string): this {
         debug('merge config:', obj, 'prefixKey', prefixKey || '')
         for (let k of Object.keys(obj)) {
-            if (typeof k === 'string') {
+            if (typeof (k as any) === 'string') {
                 const key = prefixKey && prefixKey.length > 0 ? `${prefixKey.replace(/\.*$/, '')}.${k}` : k
                 this.set(key, obj[k])
             }
@@ -97,7 +98,7 @@ export class Config extends EventEmitter2 {
         if (typeof v === 'undefined') {
             return
         }
-        return typeof v === 'number' ? v : parseFloat(v)
+        return parseFloat(v as any)
     }
 
     getAsIneger (key: string, defaultValue?: number) {
@@ -117,12 +118,18 @@ export class Config extends EventEmitter2 {
             const content = fs.readFileSync(path).toString(opt.encoding)
             return JSON.parse(content)
         } else if (/\.js$/.test(path)) {
-            const content = fs.readFileSync(path).toString(opt.encoding)
-            const { NodeVM } = require('vm2');
-            const vm = new NodeVM({
-                sandbox: { process: { env: Object.assign({}, process.env) } },
-            });
-            return vm.run(content)
+            if (opt.loadJsFileWithVm) {
+                const content = fs.readFileSync(path).toString(opt.encoding)
+                const { NodeVM } = require('vm2');
+                const vm = new NodeVM({
+                    sandbox: { process: { env: Object.assign({}, process.env) } },
+                });
+                return vm.run(content)
+            } else {
+                const Module = require('module');
+                delete require.cache[Module._resolveFilename(path, module)];
+                return module.require(path);
+            }
         } else {
             throw new Error(`can not load config, only support [.js .json .y(a)ml] file`)
         }

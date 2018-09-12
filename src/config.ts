@@ -15,12 +15,16 @@ export interface ConfigUpdateEvent {
     value: any
 }
 
-export class Config extends EventEmitter2 {
+export class Config {
 
     private config = {} as any
+    protected _events?: EventEmitter2
 
-    constructor() {
-        super({ wildcard: true })
+    public get events () {
+        if (!this._events) {
+            this._events = new EventEmitter2({ wildcard: true })
+        }
+        return this._events
     }
 
     /**
@@ -68,8 +72,10 @@ export class Config extends EventEmitter2 {
         const v = _.get(this.config, key)
         if (v !== value) {
             _.set(this.config, key, value)
-            this.emit('update', { key, value })
-            this.emit('update:' + key, { key, value })
+            if (this._events) {
+                this._events.emit('update', { key, value })
+                this._events.emit('update:' + key, { key, value })
+            }
         }
         return this
     }

@@ -4,6 +4,13 @@ A configuration manager for NodeJS. support nodejs & typescript
 - support update event
 - support load config from .js|yml|json file. 
 
+### break changes
+
+- #### 2.0.0
+  - ```Config``` is not extends ```EventEmitter2``` any more, use ```Config.prototype.events``` instead.  
+      EventEmitter2 instance will be initialized called first time (listen any events)
+
+
 ### Note
 load config from .js file:
 - ignore require.cache

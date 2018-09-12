@@ -1,6 +1,6 @@
 {
   "name": "config-xyz",
-  "version": "1.2.3",
+  "version": "2.0.1",
   "main": "./dist/config.js",
   "types": "./dist/config.d.ts",
   "license": "MIT",
@@ -19,11 +19,11 @@
     "event"
   ],
   "scripts": {
-    "aaprepack": "npm run tslint && npm run compile",
+    "prepack": "rimraf dist && npm run tslint && npm run compile",
     "compile": "tsc",
     "tslint": "tslint --project .",
     "watch": "tsc -w",
-    "test": "mocha --require espower-typescript/guess src/tests/**/*.ts"
+    "test": "mocha --require espower-typescript/guess test/*.ts"
   },
   "dependencies": {
     "debug": "^3.1.0",
@@ -36,11 +36,11 @@
     "@types/debug": "^0.0.30",
     "@types/lodash": "^4.14.116",
     "@types/mocha": "^2.2.48",
-    "@types/node": "^9.4.6",
-    "espower-typescript": "^8.1.3",
-    "mocha": "^5.0.1",
-    "power-assert": "^1.4.4",
-    "tsc-watch": "^1.0.16",
+    "@types/node": ">8.6.0",
+    "espower-typescript": "^9.0.1",
+    "mocha": "^5.2.0",
+    "power-assert": "^1.6.1",
+    "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.8.0",
     "tslint-config-standard": "^8.0.0",

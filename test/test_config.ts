@@ -5,7 +5,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 
-import { Config, ConfigUpdateEvent } from '../config';
+import { Config, ConfigUpdateEvent } from '../src/config';
 
 describe('Test Config', () => {
     it('simple', () => {
@@ -41,7 +41,7 @@ describe('Test Config', () => {
     })
     it('event', (done) => {
         const config = new Config()
-        config.on('update', (e: ConfigUpdateEvent) => {
+        config.events.on('update', (e: ConfigUpdateEvent) => {
             assert.strictEqual('xxx.aa', e.key)
             assert.strictEqual(1, e.value)
             done()
@@ -50,7 +50,7 @@ describe('Test Config', () => {
     })
     it('wild event', (done) => {
         const config = new Config()
-        config.on('update:xxx.**', (e: ConfigUpdateEvent) => {
+        config.events.on('update:xxx.**', (e: ConfigUpdateEvent) => {
             assert.strictEqual('xxx.aa', e.key)
             assert.strictEqual(1, e.value)
             done()

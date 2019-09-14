@@ -1,8 +1,8 @@
 # config-xyz
 A configuration manager for NodeJS. support nodejs & typescript  
-- support dot prop set/get 
-- support update event
-- support load config from .js|yml|json file. 
+- dot prop set/get 
+- updated event listener
+- load values from .js/yml/json files. 
 
 ### break changes
 
@@ -12,12 +12,11 @@ A configuration manager for NodeJS. support nodejs & typescript
 
 
 ### Note
-load config from .js file:
+load values from .js file:
 - ignore require.cache
-- load js files with vm2 (default), provide option ```{ loadJsFileWithVm: false }```  to skip it.
+- load js files with vm2 (default), or provide an option ```{ loadJsFileWithVm: false }```  to skip it.
 - if load with vm2
-  - cannot require any module 
-  - only access process.env   
+  - cannot require any module or access any global variables, but only process.env
 
 ## install
 ```
@@ -55,7 +54,7 @@ config.set('xxx.aa', 1)
 
 ## API
 ```typescript
-export class Config extends EventEmitter2 {
+export class Config {
     /**
      * load config from file sync. 
      * support .json .y(a)ml .js

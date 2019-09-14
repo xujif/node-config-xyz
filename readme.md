@@ -1,13 +1,13 @@
 # config-xyz
-A configuration manager for NodeJS. support nodejs & typescript  
-- dot prop set/get 
+A configuration manager for NodeJS. support nodejs & typescript
+- dot prop set/get
 - updated event listener
-- load values from .js/yml/json files. 
+- load values from .js/yml/json files.
 
 ### break changes
 
 - #### 2.0.0
-  - ```Config``` is not extends ```EventEmitter2``` any more, use ```Config.prototype.events``` instead.  
+  - ```Config``` is not extends ```EventEmitter2``` any more, use ```Config.prototype.events``` instead.
       EventEmitter2 instance will be initialized called first time (listen any events)
 
 
@@ -56,7 +56,7 @@ config.set('xxx.aa', 1)
 ```typescript
 export class Config {
     /**
-     * load config from file sync. 
+     * load config from file sync.
      * support .json .y(a)ml .js
      *
      * @param {string} path
@@ -72,14 +72,12 @@ export class Config {
      * @memberof Config
      */
     merge (obj: { [k: string]: any }, namespace?: string) : this
-    set (key: string, value: any): this 
-    has (key: string): boolean 
+    set (key: string, value: any): this
+    has (key: string): boolean
     get<T=any> (key: string): T | undefined
     get<T=any> (key: string, defaultValue: T): T
     getAsString (key: string, defaultValue?: string) : string
     getAsNumber (key: string, defaultValue?: number) : number
     getAsIneger (key: string, defaultValue?: number) : number
 }
-
-
 ```

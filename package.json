@@ -1,6 +1,6 @@
 {
   "name": "config-xyz",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "main": "./dist/config.js",
   "types": "./dist/config.d.ts",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "url": "https://github.com/xujif/node-config-xyz.git"
   },
   "homepage": "https://github.com/xujif/node-config-xyz",
-  "description": "A configuration manager for NodeJS. support nodejs & typescript",
+  "description": "A config instance for NodeJS. support nodejs & typescript",
   "author": "i@xujif.com",
   "keywords": [
     "typescript",

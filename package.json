@@ -1,6 +1,6 @@
 {
   "name": "config-xyz",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "main": "./dist/config.js",
   "types": "./dist/config.d.ts",
   "license": "MIT",
@@ -27,10 +27,8 @@
   },
   "dependencies": {
     "debug": "^3.1.0",
-    "eventemitter2": "^5.0.1",
-    "js-yaml": "^3.13.1",
-    "lodash": "^4.17.10",
-    "vm2": "^3.6.3"
+    "dot-prop": "^5.1.0",
+    "eventemitter2": "^5.0.1"
   },
   "devDependencies": {
     "@types/debug": "^0.0.30",
@@ -45,5 +43,9 @@
     "tslint-config-prettier": "^1.8.0",
     "tslint-config-standard": "^8.0.0",
     "typescript": "*"
+  },
+  "optionalDependencies": {
+    "js-yaml": "^3.13.1",
+    "vm2": "^3.8.4"
   }
 }

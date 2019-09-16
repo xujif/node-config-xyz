@@ -1,6 +1,6 @@
 import DEBUG from 'debug';
 import { EventEmitter2 } from 'eventemitter2';
-import * as _ from 'lodash';
+import * as _ from 'dot-prop';
 import { isUndefined, isNullOrUndefined } from 'util';
 
 const debug = DEBUG("config-xyz")
@@ -86,10 +86,9 @@ export class Config {
 
   get<T = any> (key: string): T | undefined
   get<T = any> (key: string, defaultValue: T): T
-  get<T = any> (key: string, defaultValue?: T): | undefined {
+  get<T = any> (key: string, defaultValue?: T): T | undefined {
     debug('get value key:', key)
-    const v = _.get(this.config, key)
-    return isNullOrUndefined(v) ? defaultValue : v
+    return _.get(this.config, key, defaultValue)
   }
 
   getAsString (key: string, defaultValue?: string) {
